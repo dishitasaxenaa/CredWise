@@ -8,4 +8,21 @@ Calling Gemini API...\nGemini response received.\nGemini Text: ```json
   "carbon_pe...\nGemini response received.\nGemini Text: ```json
 {
   "green_percentage": 4.07,
+  "carbon_pe...\nQUERY: accountNumber=12345678901, date>=Thu Jul 17 2025 10:35:55 GMT+0530 (India Standard Time)
+FOUND: 96 transactions
+Calling Gemini API...\nQUERY: accountNumber=12345678901, date>=Thu Jul 17 2025 10:36:15 GMT+0530 (India Standard Time)
+FOUND: 96 transactions
+Calling Gemini API...\nGemini response received.\nGemini Text: ```json
+{
+  "green_percentage": 4.25,
+  "carbon_pe...\nGemini response received.\nGemini Text: ```json
+{
+  "green_percentage": 4.11,
+  "carbon_pe...\nQUERY: accountNumber=12345678901, date>=Thu Jul 17 2025 10:42:24 GMT+0530 (India Standard Time)
+FOUND: 96 transactions
+Calling Gemini API...\nQUERY: accountNumber=12345678901, date>=Thu Jul 17 2025 10:42:44 GMT+0530 (India Standard Time)
+FOUND: 96 transactions
+Calling Gemini API...\nGemini response received.\nGemini Text: ```json
+{
+  "green_percentage": 4.91,
   "carbon_pe...\n

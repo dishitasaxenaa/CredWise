@@ -177,7 +177,7 @@ export default function Login() {
                                 <div className="w-5 h-5 border-2 border-white/20 border-t-white rounded-full animate-spin" />
                                 Connecting...
                             </>
-                        ) : "Generate Green Score"}
+                        ) : "Connect Bank"}
                     </button>
                     <p className="mt-4 text-xs text-slate-500 text-center">
                         This is a simulated bank connection. No real money is involved.
