@@ -1,45 +1,50 @@
 "use client"
 
-export default function StatsGrid({ metrics, streak }) {
+import { ShieldCheck, Target, TrendingUp } from "lucide-react"
+
+export default function StatsGrid({ analysis }) {
   const stats = [
     {
-      title: "Financial Health",
-      value: `${metrics?.greenPercent || "--"}%`,
-      trend: "▲ Excellent",
-      trendClass: "bg-emerald-500/30 text-emerald-300 border border-emerald-400/50",
+      title: "Sustainable Spending",
+      value: `${analysis?.green_percentage || "--"}%`,
+      icon: Target,
+      trend: "Excellent",
+      className: "from-emerald-500/20 to-teal-500/5 border-emerald-500/20 text-emerald-400"
     },
     {
-      title: "Risk Level",
-      value: `${metrics?.carbonPercent || "--"}%`,
-      trend: "▼ Monitor",
-      trendClass: "bg-red-500/30 text-red-300 border border-red-400/50",
+      title: "Carbon Footprint",
+      value: `${analysis?.carbon_percentage || "--"}%`,
+      icon: TrendingUp,
+      trend: "Monitor",
+      className: "from-orange-500/20 to-red-500/5 border-orange-500/20 text-orange-400"
     },
     {
-      title: "Account Streak",
-      value: `${streak || "01"} Months`,
-      trend: "Keep Going!",
-      trendClass: "bg-cyan-500/30 text-cyan-300 border border-cyan-400/50",
+      title: "Financial Security",
+      value: "92%", // Placeholder or derived metric
+      icon: ShieldCheck,
+      trend: "Safe",
+      className: "from-blue-500/20 to-indigo-500/5 border-blue-500/20 text-blue-400"
     },
   ]
 
   return (
-    <div className="grid grid-rows-3 gap-3 sm:gap-4 sm:p-8">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       {stats.map((stat, index) => (
         <div
           key={index}
-          className="glass-card-glow p-4 sm:p-6 border-cyan-400/30 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0 hover:scale-105 transition-transform duration-300"
-          style={{
-            animation: `slide-up 0.6s ease-out forwards`,
-            animationDelay: `${index * 0.1}s`,
-          }}
+          className="glass-card p-6 flex items-start justify-between group hover:translate-y-[-4px] transition-transform duration-300"
         >
           <div>
-            <h3 className="text-xs sm:text-sm text-slate-300 mb-1 font-medium">{stat.title}</h3>
-            <p className="text-xl sm:text-2xl font-bold text-cyan-300">{stat.value}</p>
+            <p className="text-slate-400 text-sm font-medium mb-1">{stat.title}</p>
+            <h3 className="text-3xl font-bold text-white mb-2">{stat.value}</h3>
+            <span className={`text-xs px-2 py-1 rounded-full bg-gradient-to-r border ${stat.className}`}>
+              {stat.trend}
+            </span>
           </div>
-          <span className={`text-xs px-2 sm:px-3 py-1 rounded-lg font-semibold whitespace-nowrap ${stat.trendClass}`}>
-            {stat.trend}
-          </span>
+          
+          <div className={`p-3 rounded-xl bg-slate-800 group-hover:bg-slate-700 transition-colors`}>
+            <stat.icon className={`w-6 h-6 ${stat.className.split(" ").pop()}`} />
+          </div>
         </div>
       ))}
     </div>

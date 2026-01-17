@@ -5,12 +5,18 @@ const calculateStreaks = (transactions) => {
   // Since we might only have one month of mocked data in transaction.json, 
   // we will simulate a "green streak" if the current carbon percentage is low (< 30%).
   
+  if (!transactions || transactions.length === 0) return 0;
+
   let total = 0;
   let carbon = 0;
 
   transactions.forEach(t => {
     total += t.amount;
-    if (t.category === "High Carbon") {
+    // Check for carbon category or keywords in description if category is missing
+    const isCarbon = (t.category === "High Carbon") || 
+                     (t.description && ["fuel", "petrol", "airline", "flight"].some(kw => t.description.toLowerCase().includes(kw)));
+    
+    if (isCarbon) {
       carbon += t.amount;
     }
   });
@@ -26,6 +32,8 @@ const calculateStreaks = (transactions) => {
 const assignBadges = (transactions) => {
   const badges = [];
   
+  if (!transactions || transactions.length === 0) return badges;
+
   // Helper to count category/keywords
   const countMatches = (keyword) => transactions.filter(t => 
     (t.description || "").toLowerCase().includes(keyword.toLowerCase()) ||

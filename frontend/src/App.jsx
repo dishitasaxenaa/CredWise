@@ -1,9 +1,29 @@
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useAuth } from "./context/AuthContext";
+import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 
-function App() {
-  return (
-    <Dashboard />
-  );
+
+function ProtectedRoute({ children }) {
+  const { token } = useAuth();
+  return token ? children : <Navigate to="/" />;
 }
 
-export default App;
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
+  );
+}
