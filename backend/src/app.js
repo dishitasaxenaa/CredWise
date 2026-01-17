@@ -17,5 +17,8 @@ app.use("/bank", require("./routes/bank.routes"));
 app.use("/analysis", require("./routes/analysis.routes"));
 app.use("/score", require("./routes/score.route"));
 app.use("/user", require("./routes/user.routes"));
+app.use("/reward", require("./routes/reward.routes"));
+app.use("/explainability", require("./routes/explainability.routes"));
+app.use("/dashboard", require("./routes/dashboard.routes"));
 
 module.exports = app;

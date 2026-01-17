@@ -1,7 +1,16 @@
-// src/config/db.js
+const mongoose = require("mongoose");
 
-function connectDB() {
-  console.log("🗄️ Database connection simulated (No DB in MVP)");
-}
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGODB_URI, {
+      serverSelectionTimeoutMS: 5000 // Fail after 5 seconds if not connected
+    });
+
+    console.log("✅ MongoDB connected successfully");
+  } catch (error) {
+    console.error("❌ MongoDB connection failed:", error.message);
+    process.exit(1);
+  }
+};
 
 module.exports = connectDB;

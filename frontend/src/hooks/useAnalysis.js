@@ -1,31 +1,30 @@
-import { useState, useCallback } from 'react';
+import { useEffect, useState } from "react";
+import { fetchDashboard } from "../api/dashboardApi";
+import { useAuth } from "../context/AuthContext";
 
-export const useAnalysis = () => {
+export default function useAnalysis() {
+  const { token } = useAuth();
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const fetchAnalysis = useCallback(async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const response = await fetch('/analysis/run', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-      });
-      const result = await response.json();
-      if (result.success) {
-        setData(result.data.analysis);
-      } else {
-        setError('Failed to fetch analysis');
-      }
-    } catch (err) {
-      console.error(err);
-      setError('Error connecting to backend');
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+  useEffect(() => {
+    if (!token) return;
 
-  return { data, loading, error, fetchAnalysis };
-};
+    async function load() {
+      try {
+        setLoading(true);
+        const res = await fetchDashboard(token);
+        setData(res);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    load();
+  }, [token]);
+
+  return { data, loading, error };
+}

@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { analyzeTransactionsWithGemini } = require("./src/services/ai.service");
+const { analyzeTransactionsWithAI } = require("./src/services/ai.service");
 
 const mockTransactions = [
     { description: "Shell Petrol Pump", amount: 3000 },
@@ -10,15 +10,13 @@ const mockTransactions = [
 async function testAI() {
     console.log("Testing AI Service...");
     try {
-        const result = await analyzeTransactionsWithGemini(mockTransactions);
+        const result = await analyzeTransactionsWithAI(mockTransactions);
         console.log("AI Result:", JSON.stringify(result, null, 2));
     } catch (error) {
-        console.error("AI Service Validation Failed:");
-        console.error("Message:", error.message);
-        console.error("Stack:", error.stack);
-        if (error.response) {
-             console.error("Response:", JSON.stringify(error.response, null, 2));
-        }
+        const fs = require('fs');
+        const logMsg = `AI Service Validation Failed:\nMessage: ${error.message}\nStack: ${error.stack}\nResponse: ${error.response ? JSON.stringify(error.response, null, 2) : 'N/A'}\n`;
+        fs.writeFileSync('reproduce_log.txt', logMsg);
+        console.error(logMsg);
     }
 }
 
